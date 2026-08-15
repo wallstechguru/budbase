@@ -1,0 +1,158 @@
+<div class="filter-bar">
+  <% if (facets.categories.length) { %>
+    <div class="filter-pill" data-pill>
+      <button type="button" class="filter-pill__trigger">
+        Product Type
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="filter-pill__panel">
+        <ul>
+          <% facets.categories.forEach(function(c) { %>
+            <li>
+              <label>
+                <input type="checkbox" name="category" value="<%= c.slug %>" <%= activeFilters.category.includes(c.slug) ? 'checked' : '' %>>
+                <span><%= c.name %></span>
+                <span class="filter-count"><%= c.count %></span>
+              </label>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+  <% } %>
+
+  <div class="filter-pill" data-pill>
+    <button type="button" class="filter-pill__trigger">
+      Brand
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="filter-pill__panel">
+      <ul class="filter-pill__scroll">
+        <% facets.brands.forEach(function(b) { %>
+          <li>
+            <label>
+              <input type="checkbox" name="brand" value="<%= b.slug %>" <%= activeFilters.brand.includes(b.slug) ? 'checked' : '' %>>
+              <span><%= b.name %></span>
+              <span class="filter-count"><%= b.count %></span>
+            </label>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="filter-pill" data-pill>
+    <button type="button" class="filter-pill__trigger">
+      Consumption Method
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="filter-pill__panel">
+      <ul>
+        <% facets.consumption.forEach(function(f) { %>
+          <li>
+            <label>
+              <input type="checkbox" name="consumption" value="<%= f.value %>" <%= activeFilters.consumption.includes(f.value) ? 'checked' : '' %>>
+              <span><%= f.value %></span>
+              <span class="filter-count"><%= f.count %></span>
+            </label>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="filter-pill" data-pill>
+    <button type="button" class="filter-pill__trigger">
+      Cultivar
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="filter-pill__panel">
+      <ul>
+        <% facets.cultivars.forEach(function(f) { %>
+          <li>
+            <label>
+              <input type="checkbox" name="cultivar" value="<%= f.value %>" <%= activeFilters.cultivar.includes(f.value) ? 'checked' : '' %>>
+              <span><%= f.value %></span>
+              <span class="filter-count"><%= f.count %></span>
+            </label>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="filter-pill" data-pill>
+    <button type="button" class="filter-pill__trigger">
+      Dominant Effect
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="filter-pill__panel">
+      <ul>
+        <% facets.effects.forEach(function(f) { %>
+          <li>
+            <label>
+              <input type="checkbox" name="effect" value="<%= f.value %>" <%= activeFilters.effect.includes(f.value) ? 'checked' : '' %>>
+              <span><%= f.value %></span>
+              <span class="filter-count"><%= f.count %></span>
+            </label>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="filter-pill" data-pill>
+    <button type="button" class="filter-pill__trigger">
+      Form
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="filter-pill__panel">
+      <ul>
+        <% facets.forms.forEach(function(f) { %>
+          <li>
+            <label>
+              <input type="checkbox" name="form" value="<%= f.value %>" <%= activeFilters.form.includes(f.value) ? 'checked' : '' %>>
+              <span><%= f.value %></span>
+              <span class="filter-count"><%= f.count %></span>
+            </label>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+
+  <% var priceFloor = Math.floor(facets.priceBounds.min || 0); var priceCeil = Math.ceil(facets.priceBounds.max || 100); %>
+  <div class="filter-pill" data-pill>
+    <button type="button" class="filter-pill__trigger">
+      Price
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="filter-pill__panel filter-pill__panel--price">
+      <div class="filter-price" data-floor="<%= priceFloor %>" data-ceil="<%= priceCeil %>">
+        <div class="filter-price__values">
+          <span id="price-min-label"><%= currencySymbol %><%= activeFilters.price_min || priceFloor %></span>
+          <span>&ndash;</span>
+          <span id="price-max-label"><%= currencySymbol %><%= activeFilters.price_max || priceCeil %></span>
+        </div>
+        <div class="range-slider">
+          <input type="range" class="range-slider__input range-slider__input--min" name="price_min" id="price-min-range"
+            min="<%= priceFloor %>" max="<%= priceCeil %>" value="<%= activeFilters.price_min || priceFloor %>">
+          <input type="range" class="range-slider__input range-slider__input--max" name="price_max" id="price-max-range"
+            min="<%= priceFloor %>" max="<%= priceCeil %>" value="<%= activeFilters.price_max || priceCeil %>">
+          <div class="range-slider__track"></div>
+          <div class="range-slider__fill" id="price-range-fill"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="<%= clearHref %>" class="filter-clear">Clear all</a>
+
+  <label class="filter-sort">
+    <select name="sort" onchange="this.form.submit()">
+      <% Object.entries(sortOptions).forEach(function([key, opt]) { %>
+        <option value="<%= key %>" <%= key === sortKey ? 'selected' : '' %>><%= opt.label %></option>
+      <% }) %>
+    </select>
+  </label>
+</div>

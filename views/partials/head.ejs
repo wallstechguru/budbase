@@ -1,0 +1,19 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= typeof title !== 'undefined' ? title + ' | BudBase' : 'BudBase' %></title>
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/footer.css">
+<link rel="stylesheet" href="/css/age-gate.css">
+<link rel="stylesheet" href="/css/product-card.css">
+<link rel="stylesheet" href="/css/cart-drawer.css">
+<link rel="stylesheet" href="/css/search-overlay.css">
+<link rel="stylesheet" href="/css/mobile-nav.css">
+<% if (typeof extraCss !== 'undefined') { %>
+  <% extraCss.forEach(function(href) { %>
+    <link rel="stylesheet" href="<%= href %>">
+  <% }) %>
+<% } %>

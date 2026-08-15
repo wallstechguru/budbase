@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/categories.css">
+  <link rel="stylesheet" href="/css/product.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container product-page">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/shop">Shop</a>
+        <% if (product.category_slug) { %>
+          <span>/</span>
+          <a href="/shop/<%= product.category_slug %>"><%= product.category_name %></a>
+        <% } %>
+        <span>/</span>
+        <span aria-current="page"><%= product.name %></span>
+      </nav>
+
+      <div class="product-detail">
+        <div class="product-gallery">
+          <div class="product-gallery__main">
+            <img src="<%= resolveProductImage(product.image) %>" alt="<%= product.name %>">
+          </div>
+        </div>
+
+        <div class="product-info">
+          <p class="product-info__brand"><%= product.brand_name %></p>
+          <h1><%= product.name %></h1>
+
+          <div class="product-info__tags">
+            <% if (product.cultivar_type) { %><span class="tag"><%= product.cultivar_type %></span><% } %>
+            <% if (product.form) { %><span class="tag"><%= product.form %></span><% } %>
+            <% if (product.thc_min) { %><span class="tag tag--thc">THC <%= product.thc_min %>&ndash;<%= product.thc_max %>%</span><% } %>
+            <% if (product.cbd_min !== null && product.cbd_min !== undefined && !(product.cbd_min === 0 && product.cbd_max <= 1)) { %>
+              <span class="tag tag--thc">CBD <%= product.cbd_min %>&ndash;<%= product.cbd_max %>%</span>
+            <% } %>
+          </div>
+
+          <p class="product-info__price" id="selected-price"><%= formatPrice(variants[0].price) %></p>
+
+          <form class="add-to-cart-form" id="add-to-cart-form">
+            <div class="variant-picker">
+              <span class="variant-picker__label">Size</span>
+              <div class="variant-picker__options">
+                <% variants.forEach(function(v, i) { %>
+                  <button type="button" class="variant-pill <%= i === 0 ? 'is-selected' : '' %>"
+                    data-variant-id="<%= v.id %>" data-price="<%= v.price %>">
+                    <%= v.size_label %>
+                  </button>
+                <% }) %>
+              </div>
+            </div>
+
+            <input type="hidden" name="variant_id" id="selected-variant-id" value="<%= variants[0].id %>">
+
+            <div class="quantity-stepper">
+              <span class="quantity-stepper__label">Quantity</span>
+              <div class="quantity-stepper__control">
+                <button type="button" class="quantity-stepper__btn" id="qty-decrease" aria-label="Decrease quantity">&minus;</button>
+                <input type="number" name="quantity" id="qty-input" value="1" min="1" inputmode="numeric">
+                <button type="button" class="quantity-stepper__btn" id="qty-increase" aria-label="Increase quantity">&#43;</button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary product-info__add-btn">Add to Cart</button>
+          </form>
+
+          <div class="product-tabs">
+            <div class="product-tabs__nav">
+              <button type="button" class="product-tabs__tab is-active" data-tab="details">Details</button>
+              <button type="button" class="product-tabs__tab" data-tab="effects">Effects</button>
+            </div>
+            <div class="product-tabs__panel" data-tab-panel="details">
+              <p><%= product.description %></p>
+            </div>
+            <div class="product-tabs__panel" data-tab-panel="effects" hidden>
+              <ul class="spec-list">
+                <% if (product.dominant_effect) { %><li><span>Dominant Effect</span><span><%= product.dominant_effect %></span></li><% } %>
+                <% if (product.cultivar_type) { %><li><span>Cultivar Type</span><span><%= product.cultivar_type %></span></li><% } %>
+                <% if (product.consumption_method) { %><li><span>Consumption Method</span><span><%= product.consumption_method %></span></li><% } %>
+                <% if (product.form) { %><li><span>Form</span><span><%= product.form %></span></li><% } %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <% if (relatedProducts.length) { %>
+        <section class="collections">
+          <div class="collections__header">
+            <h2>You May Also Like</h2>
+          </div>
+          <div class="product-grid">
+            <% relatedProducts.forEach(function(p) { %>
+              <%- include('../partials/product-card', { product: p }) %>
+            <% }) %>
+          </div>
+        </section>
+      <% } %>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+  <script src="/js/product-detail.js" defer></script>
+</body>
+</html>

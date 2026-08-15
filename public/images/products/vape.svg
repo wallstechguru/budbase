@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3C4A41"/>
+      <stop offset="100%" stop-color="#14251C"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#g)"/>
+  <g transform="translate(300 300) rotate(10)">
+    <rect x="-24" y="-160" width="48" height="260" rx="16" fill="#A9C93B"/>
+    <rect x="-24" y="-160" width="48" height="60" rx="16" fill="#E1EDE5"/>
+    <polygon points="-20,100 20,100 12,160 -12,160" fill="#E0A83B"/>
+  </g>
+  <text x="300" y="560" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#FAF7F0" opacity="0.85">Vapes</text>
+</svg>

@@ -1,0 +1,63 @@
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="/" class="site-header__logo" aria-label="BudBase home">
+      <img src="/images/logo.svg" alt="BudBase" height="34">
+    </a>
+
+    <nav class="site-header__nav" aria-label="Primary">
+      <div class="nav-item nav-item--mega">
+        <button type="button" class="nav-item__trigger" aria-expanded="false">
+          Shop Now
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="mega-menu">
+          <div class="mega-menu__grid">
+            <% categories.forEach(function(c) { %>
+              <a href="/shop/<%= c.slug %>" class="mega-menu__item">
+                <span class="mega-menu__thumb">
+                  <img src="/images/products/<%= c.tile_image %>" alt="">
+                </span>
+                <span><%= c.name %></span>
+              </a>
+            <% }) %>
+          </div>
+          <a href="/shop" class="mega-menu__all">Shop all products &rarr;</a>
+        </div>
+      </div>
+
+      <a href="/deals">Deals</a>
+      <a href="/locations">Locations</a>
+      <a href="/recycling">Recycling Initiative</a>
+    </nav>
+
+    <div class="site-header__actions">
+      <button type="button" class="icon-btn mobile-nav-toggle" id="mobile-nav-open" aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="store-info">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v10h16V9"/><path d="M9 19v-6h6v6"/></svg>
+        <div class="store-info__text">
+          <span>BudBase HQ</span>
+          <span>Open until 9:00 PM &middot; In-Store Pickup</span>
+        </div>
+      </div>
+
+      <button class="icon-btn" type="button" id="search-open" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <a href="<%= currentUser ? '/account' : '/account/login' %>" class="icon-btn<%= currentUser ? ' icon-btn--active' : '' %>" aria-label="<%= currentUser ? 'My Account' : 'Log in' %>">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      </a>
+      <button type="button" class="icon-btn icon-btn--cart" id="cart-drawer-open" aria-label="Open cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l2.4 12.4a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="9" cy="21" r="1"/><circle cx="18" cy="21" r="1"/></svg>
+        <span class="cart-count"><%= typeof cartCount !== 'undefined' ? cartCount : 0 %></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<%- include('search-overlay') %>
+<script src="/js/search-overlay.js" defer></script>
+
+<%- include('mobile-nav') %>
+<script src="/js/mobile-nav.js" defer></script>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container pages-hero">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span aria-current="page">Investor Relations</span>
+      </nav>
+      <h1>Investor Relations</h1>
+      <p class="pages-hero__lead">BudBase is a privately held company.</p>
+    </div>
+
+    <div class="container prose-section">
+      <h2>Company Overview</h2>
+      <p>BudBase operates a single retail location and online store focused on value-priced cannabis products. We are not publicly traded, and this page does not constitute an offer of securities.</p>
+
+      <h2>Inquiries</h2>
+      <p>For partnership, investment, or press inquiries, please get in touch via our <a href="/contact">contact page</a> and a member of our team will follow up.</p>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

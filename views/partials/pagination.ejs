@@ -1,0 +1,24 @@
+<% if (totalPages > 1) { %>
+  <nav class="pagination" aria-label="Pagination">
+    <% if (page > 1) { %>
+      <a class="pagination__link" href="?<%= pagerQuery %><%= pagerQuery ? '&' : '' %>page=<%= page - 1 %>">&laquo; Previous</a>
+    <% } else { %>
+      <span class="pagination__link is-disabled">&laquo; Previous</span>
+    <% } %>
+
+    <% pageTokens.forEach(function(token) { %>
+      <% if (token === '...') { %>
+        <span class="pagination__ellipsis">&hellip;</span>
+      <% } else { %>
+        <a class="pagination__link <%= token === page ? 'is-active' : '' %>"
+           href="?<%= pagerQuery %><%= pagerQuery ? '&' : '' %>page=<%= token %>"><%= token %></a>
+      <% } %>
+    <% }) %>
+
+    <% if (page < totalPages) { %>
+      <a class="pagination__link" href="?<%= pagerQuery %><%= pagerQuery ? '&' : '' %>page=<%= page + 1 %>">Next &raquo;</a>
+    <% } else { %>
+      <span class="pagination__link is-disabled">Next &raquo;</span>
+    <% } %>
+  </nav>
+<% } %>

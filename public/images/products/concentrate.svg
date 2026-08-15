@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E0A83B"/>
+      <stop offset="100%" stop-color="#1F4D3A"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#g)"/>
+  <path d="M300 170 C 360 260, 400 320, 400 380 C 400 445, 355 480, 300 480 C 245 480, 200 445, 200 380 C 200 320, 240 260, 300 170 Z"
+        fill="#FAF7F0" opacity="0.92"/>
+  <path d="M300 220 C 335 280, 355 320, 355 365 C 355 400, 330 420, 300 420"
+        fill="none" stroke="#A9C93B" stroke-width="8" stroke-linecap="round" opacity="0.7"/>
+  <text x="300" y="560" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#FAF7F0" opacity="0.85">Concentrates</text>
+</svg>

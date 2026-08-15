@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 60" role="img" aria-label="BudBase">
+  <g transform="translate(4 10)">
+    <path d="M20 0 C 12 10, 6 20, 20 36 C 34 20, 28 10, 20 0 Z" fill="#A9C93B"/>
+    <path d="M20 36 C 8 30, 0 28, -6 34 C 4 42, 12 42, 20 36 Z" fill="#2E6E4E"/>
+    <path d="M20 36 C 32 30, 40 28, 46 34 C 36 42, 28 42, 20 36 Z" fill="#2E6E4E"/>
+  </g>
+  <text x="56" y="40" font-family="Georgia, 'Fraunces', serif" font-weight="600" font-size="30" fill="#14251C">Bud<tspan fill="#2E6E4E">Base</tspan></text>
+</svg>

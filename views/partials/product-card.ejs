@@ -1,0 +1,10 @@
+<a href="/product/<%= product.slug %>" class="product-card">
+  <span class="product-card__image">
+    <img src="<%= resolveProductImage(product.image) %>" alt="<%= product.name %>">
+  </span>
+  <span class="product-card__body">
+    <span class="product-card__brand"><%= product.brand_name %></span>
+    <span class="product-card__name"><%= product.name %></span>
+    <span class="product-card__price"><%= formatPrice(product.price_from) %></span>
+  </span>
+</a>

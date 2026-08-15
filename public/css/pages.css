@@ -1,0 +1,195 @@
+.pages-hero {
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-7);
+  max-width: 720px;
+}
+
+.pages-hero h1 { margin-bottom: var(--space-3); }
+
+.pages-hero__lead {
+  color: var(--color-text-muted);
+  font-size: var(--fs-md);
+}
+
+.prose-section {
+  max-width: 720px;
+  padding-bottom: var(--space-9);
+}
+
+.prose-section h2 {
+  font-size: var(--fs-lg);
+  margin-top: var(--space-7);
+  margin-bottom: var(--space-3);
+}
+
+.prose-section h2:first-child { margin-top: 0; }
+
+.prose-section p { color: var(--color-text); }
+
+.prose-section a {
+  color: var(--color-forest-700);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* Deals */
+.deals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  padding-bottom: var(--space-8);
+}
+
+.deal-tile {
+  padding: var(--space-7);
+  border-radius: var(--radius-lg);
+}
+
+.deal-tile h2 {
+  font-size: var(--fs-xl);
+  margin-bottom: var(--space-3);
+}
+
+.deal-tile p { margin-bottom: var(--space-5); }
+
+.deal-tile--rewards {
+  background: var(--color-forest-900);
+  color: var(--color-lime-500);
+}
+.deal-tile--rewards p { color: var(--color-forest-300); }
+
+.deal-tile--deal {
+  background: var(--color-gold-500);
+  color: var(--color-forest-900);
+}
+.deal-tile--deal p { color: var(--color-forest-700); }
+
+/* Locations */
+.store-list {
+  padding-bottom: var(--space-9);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 640px;
+}
+
+.store-card {
+  display: flex;
+  gap: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+}
+
+.store-card__map {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  background: var(--color-forest-100);
+  color: var(--color-forest-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.store-card__body h2 { font-size: var(--fs-lg); margin-bottom: var(--space-2); }
+.store-card__address, .store-card__phone {
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+  margin-bottom: var(--space-1);
+}
+
+.store-card__hours {
+  margin-top: var(--space-4);
+  font-size: var(--fs-sm);
+  border-collapse: collapse;
+}
+.store-card__hours td {
+  padding: var(--space-1) var(--space-4) var(--space-1) 0;
+  color: var(--color-forest-900);
+}
+.store-card__hours td:first-child { color: var(--color-text-muted); }
+
+/* Recycling impact stats */
+.impact-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+  padding-bottom: var(--space-8);
+}
+
+.impact-stat {
+  text-align: center;
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.impact-stat strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  color: var(--color-forest-700);
+  margin-bottom: var(--space-2);
+}
+
+.impact-stat span {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+/* Contact */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--space-8);
+  padding-bottom: var(--space-9);
+  align-items: start;
+}
+
+.contact-success {
+  background: var(--color-forest-100);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  color: var(--color-forest-900);
+}
+
+.contact-details {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+}
+
+.contact-details h2 { font-size: var(--fs-md); margin-bottom: var(--space-4); }
+.contact-details p { font-size: var(--fs-sm); color: var(--color-text-muted); margin-bottom: var(--space-2); }
+.contact-details strong { color: var(--color-forest-900); }
+
+/* Careers */
+.job-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 640px;
+  padding-bottom: var(--space-7);
+}
+
+.job-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+}
+
+.job-card h2 { font-size: var(--fs-md); margin-bottom: var(--space-1); }
+.job-card p { color: var(--color-text-muted); font-size: var(--fs-sm); margin-bottom: 0; }
+
+@media (max-width: 760px) {
+  .deals-grid { grid-template-columns: 1fr; }
+  .impact-stats { grid-template-columns: 1fr; }
+  .contact-layout { grid-template-columns: 1fr; }
+  .store-card { flex-direction: column; }
+}

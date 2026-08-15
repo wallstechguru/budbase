@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2E6E4E"/>
+      <stop offset="100%" stop-color="#14251C"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#g)"/>
+  <g fill="#A9C93B" opacity="0.9">
+    <path d="M300 160 C 260 220, 230 280, 300 380 C 370 280, 340 220, 300 160 Z"/>
+    <path d="M300 380 C 230 340, 170 320, 130 350 C 190 400, 240 400, 300 380 Z"/>
+    <path d="M300 380 C 370 340, 430 320, 470 350 C 410 400, 360 400, 300 380 Z"/>
+    <path d="M300 380 C 260 430, 240 470, 260 510 C 310 480, 320 430, 300 380 Z"/>
+    <path d="M300 380 C 340 430, 360 470, 340 510 C 290 480, 280 430, 300 380 Z"/>
+  </g>
+  <text x="300" y="560" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#FAF7F0" opacity="0.85">Dried Flower</text>
+</svg>

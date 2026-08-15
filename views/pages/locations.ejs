@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container pages-hero">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span aria-current="page">Locations</span>
+      </nav>
+      <h1>Locations</h1>
+      <p class="pages-hero__lead">Visit us in person, or order online for delivery.</p>
+    </div>
+
+    <div class="container store-list">
+      <% stores.forEach(function(store) { %>
+        <div class="store-card">
+          <div class="store-card__map" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          </div>
+          <div class="store-card__body">
+            <h2><%= store.name %></h2>
+            <p class="store-card__address"><%= store.address %></p>
+            <p class="store-card__phone"><%= store.phone %></p>
+            <table class="store-card__hours">
+              <% store.hours.forEach(function(h) { %>
+                <tr><td><%= h.day %></td><td><%= h.time %></td></tr>
+              <% }) %>
+            </table>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

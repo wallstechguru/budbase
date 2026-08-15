@@ -1,0 +1,40 @@
+<% if (cartItems.length) { %>
+  <ul class="cart-page__list">
+    <% cartItems.forEach(function(item) { %>
+      <li class="cart-page__row" data-cart-item-id="<%= item.cart_item_id %>">
+        <a href="/product/<%= item.product_slug %>" class="cart-page__row-image">
+          <img src="<%= resolveProductImage(item.product_image) %>" alt="<%= item.product_name %>">
+        </a>
+        <div class="cart-page__row-body">
+          <span class="cart-page__row-brand"><%= item.brand_name %></span>
+          <a href="/product/<%= item.product_slug %>" class="cart-page__row-name"><%= item.product_name %></a>
+          <span class="cart-page__row-size"><%= item.size_label %></span>
+          <button type="button" class="cart-page__row-remove" data-cart-item-id="<%= item.cart_item_id %>">Remove</button>
+        </div>
+        <div class="quantity-stepper">
+          <div class="quantity-stepper__control">
+            <button type="button" class="quantity-stepper__btn cart-qty-decrease" data-cart-item-id="<%= item.cart_item_id %>" aria-label="Decrease quantity">&minus;</button>
+            <input type="number" class="cart-qty-input" data-cart-item-id="<%= item.cart_item_id %>" value="<%= item.quantity %>" min="1" inputmode="numeric">
+            <button type="button" class="quantity-stepper__btn cart-qty-increase" data-cart-item-id="<%= item.cart_item_id %>" aria-label="Increase quantity">&#43;</button>
+          </div>
+        </div>
+        <span class="cart-page__row-total"><%= formatPrice(item.price * item.quantity) %></span>
+      </li>
+    <% }) %>
+  </ul>
+
+  <div class="cart-page__summary">
+    <div class="cart-page__subtotal">
+      <span>Subtotal</span>
+      <span><%= formatPrice(cartSubtotal) %></span>
+    </div>
+    <p class="cart-page__note">Taxes and delivery, if applicable, are calculated at checkout.</p>
+    <a href="/checkout" class="btn btn-primary cart-page__checkout-btn">Proceed to Checkout</a>
+    <a href="/shop" class="btn btn-outline cart-page__continue-btn">Continue Shopping</a>
+  </div>
+<% } else { %>
+  <div class="cart-page__empty">
+    <p>Your cart is empty.</p>
+    <a href="/shop" class="btn btn-primary">Start Shopping</a>
+  </div>
+<% } %>

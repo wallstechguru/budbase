@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/checkout.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container checkout-page">
+      <% if (!order) { %>
+        <h1>Order Not Found</h1>
+        <p>We couldn't find that order. If you just placed one, check your email for confirmation.</p>
+        <a href="/shop" class="btn btn-primary">Continue Shopping</a>
+      <% } else { %>
+        <div class="confirmation">
+          <div class="confirmation__icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+          </div>
+          <h1>Thank you, <%= order.full_name.split(' ')[0] %>!</h1>
+          <p class="confirmation__sub">Order #<%= order.id %> has been received and is <strong>pending manual processing</strong>. We'll be in touch shortly to confirm payment and next steps.</p>
+
+          <% var method = paymentMethods.find(function(m) { return m.value === order.payment_method; }); %>
+          <% if (method) { %>
+            <div class="confirmation__payment">
+              <strong><%= method.label %><%= order.crypto_network && method.networks ? ' — ' + method.networks.find(function(n) { return n.value === order.crypto_network; }).label : '' %>:</strong>
+              <%= method.instructions %>
+            </div>
+          <% } %>
+
+          <div class="checkout-summary confirmation__summary">
+            <h2>Order Summary</h2>
+            <ul class="checkout-summary__list">
+              <% order.items.forEach(function(item) { %>
+                <li>
+                  <span class="checkout-summary__item-name"><%= item.quantity %> &times; <%= item.product_name %> <em><%= item.size_label %></em></span>
+                  <span><%= formatPrice(item.unit_price * item.quantity) %></span>
+                </li>
+              <% }) %>
+            </ul>
+            <div class="checkout-summary__total">
+              <span>Subtotal</span>
+              <span><%= formatPrice(order.subtotal) %></span>
+            </div>
+            <p class="confirmation__detail"><strong>Delivery to:</strong> <%= order.address %></p>
+            <p class="confirmation__detail"><strong>Contact:</strong> <%= order.email %><%= order.phone ? ' · ' + order.phone : '' %></p>
+          </div>
+
+          <a href="/shop" class="btn btn-outline">Continue Shopping</a>
+        </div>
+      <% } %>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

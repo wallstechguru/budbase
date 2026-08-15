@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/shop.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container shop-page">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/shop">Shop</a>
+        <% if (category) { %>
+          <span>/</span>
+          <span aria-current="page"><%= category.name %></span>
+        <% } %>
+      </nav>
+
+      <h1><%= heading %></h1>
+
+      <form id="filter-form" method="GET">
+        <%- include('../partials/filter-bar') %>
+
+        <div class="shop-availability">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <%= total %> product<%= total === 1 ? '' : 's' %> available at BudBase HQ
+        </div>
+
+        <% if (products.length) { %>
+          <div class="product-grid">
+            <% products.forEach(function(product) { %>
+              <%- include('../partials/product-card', { product: product }) %>
+            <% }) %>
+          </div>
+
+          <%- include('../partials/pagination') %>
+        <% } else { %>
+          <p class="shop-empty">No products match your filters. Try clearing some to see more.</p>
+          <a href="<%= clearHref %>" class="btn btn-outline">Clear all filters</a>
+        <% } %>
+      </form>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+  <script src="/js/shop-filters.js" defer></script>
+</body>
+</html>

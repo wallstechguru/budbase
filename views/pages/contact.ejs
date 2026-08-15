@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/checkout.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container pages-hero">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span aria-current="page">Contact Us</span>
+      </nav>
+      <h1>Contact Us</h1>
+      <p class="pages-hero__lead">Questions about an order, a product, or anything else — we'll get back to you.</p>
+    </div>
+
+    <div class="container contact-layout">
+      <div class="contact-form-wrap">
+        <% if (submitted) { %>
+          <div class="contact-success">
+            <strong>Message sent.</strong> Thanks for reaching out — we'll reply to your email shortly.
+          </div>
+        <% } else { %>
+          <% if (errors) { %>
+            <div class="form-errors">
+              <ul>
+                <% errors.forEach(function(e) { %><li><%= e %></li><% }) %>
+              </ul>
+            </div>
+          <% } %>
+
+          <form method="POST" action="/contact">
+            <div class="form-row">
+              <label>Name
+                <input type="text" name="name" value="<%= formValues.name || '' %>" required>
+              </label>
+            </div>
+            <div class="form-row">
+              <label>Email
+                <input type="email" name="email" value="<%= formValues.email || '' %>" required>
+              </label>
+            </div>
+            <div class="form-row">
+              <label>Message
+                <textarea name="message" rows="5" required><%= formValues.message || '' %></textarea>
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        <% } %>
+      </div>
+
+      <div class="contact-details">
+        <h2>Other Ways to Reach Us</h2>
+        <p><strong>Phone:</strong> 020 7946 0958</p>
+        <p><strong>Email:</strong> hello@budbase.example</p>
+        <p><strong>Address:</strong> 12 Market Street, London, E2 7JP</p>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

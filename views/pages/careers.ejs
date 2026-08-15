@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container pages-hero">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span aria-current="page">Careers</span>
+      </nav>
+      <h1>Careers</h1>
+      <p class="pages-hero__lead">We're a small team building a better value cannabis retailer.</p>
+    </div>
+
+    <div class="container job-list">
+      <div class="job-card">
+        <div>
+          <h2>Retail Associate</h2>
+          <p>BudBase HQ, London &middot; Part-time</p>
+        </div>
+        <a href="/contact" class="btn btn-outline">Apply</a>
+      </div>
+      <div class="job-card">
+        <div>
+          <h2>Delivery Driver</h2>
+          <p>London &middot; Full-time</p>
+        </div>
+        <a href="/contact" class="btn btn-outline">Apply</a>
+      </div>
+      <div class="job-card">
+        <div>
+          <h2>Customer Support</h2>
+          <p>Remote &middot; Part-time</p>
+        </div>
+        <a href="/contact" class="btn btn-outline">Apply</a>
+      </div>
+    </div>
+
+    <div class="container prose-section">
+      <p>Don't see a role that fits? We're always happy to hear from people who care about doing cannabis retail right. Reach out via our <a href="/contact">contact page</a> and tell us what you're looking for.</p>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

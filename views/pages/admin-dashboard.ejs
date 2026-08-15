@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container admin-page">
+      <div class="admin-page__head">
+        <h1>Products</h1>
+        <a href="/admin/products/new" class="btn btn-primary">Add Product</a>
+      </div>
+
+      <% if (deleted) { %>
+        <div class="admin-notice">Product deleted.</div>
+      <% } %>
+
+      <% if (!products.length) { %>
+        <p class="admin-empty">No products yet. <a href="/admin/products/new">Add your first one.</a></p>
+      <% } else { %>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Category</th>
+                <th>Sizes</th>
+                <th>Price</th>
+                <th>Featured</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% products.forEach(function(p) { %>
+                <tr>
+                  <td><a href="/admin/products/<%= p.id %>/edit"><%= p.name %></a></td>
+                  <td><%= p.brand_name || '—' %></td>
+                  <td><%= p.category_name || '—' %></td>
+                  <td><%= p.variant_count %></td>
+                  <td><%= p.price_from === p.price_to ? formatPrice(p.price_from) : formatPrice(p.price_from) + '–' + formatPrice(p.price_to) %></td>
+                  <td><%= p.featured ? 'Yes' : '' %></td>
+                  <td class="admin-table__actions">
+                    <a href="/admin/products/<%= p.id %>/edit">Edit</a>
+                    <form method="POST" action="/admin/products/<%= p.id %>/delete" data-confirm="Delete this product? This can't be undone.">
+                      <button type="submit" class="admin-table__delete">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+  <script src="/js/admin.js" defer></script>
+</body>
+</html>

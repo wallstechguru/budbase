@@ -1,0 +1,77 @@
+:root {
+  /* Brand colors */
+  --color-forest-900: #14251C;
+  --color-forest-700: #1F4D3A;
+  --color-forest-500: #2E6E4E;
+  --color-forest-300: #6FA383;
+  --color-forest-100: #E1EDE5;
+
+  --color-lime-500: #A9C93B;
+  --color-lime-300: #D3E68F;
+
+  --color-gold-500: #E0A83B;
+  --color-gold-300: #F0D28F;
+
+  --color-cream-100: #FAF7F0;
+  --color-cream-200: #F1ECE0;
+  --color-white: #FFFFFF;
+
+  --color-ink-900: #16201A;
+  --color-ink-700: #3C4A41;
+  --color-ink-500: #6B776E;
+  --color-ink-300: #A8B1AB;
+
+  --color-border: #E4E0D3;
+  --color-error: #C0392B;
+  --color-success: #2E7D4F;
+
+  /* Semantic */
+  --color-bg: var(--color-cream-100);
+  --color-surface: var(--color-white);
+  --color-text: var(--color-ink-900);
+  --color-text-muted: var(--color-ink-500);
+  --color-primary: var(--color-forest-700);
+  --color-primary-hover: var(--color-forest-900);
+  --color-accent: var(--color-lime-500);
+  --color-accent-2: var(--color-gold-500);
+
+  /* Type — bold condensed display for headers/tiles, Inter for everything else */
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Anton", "Inter", sans-serif;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.375rem;
+  --fs-xl: 1.75rem;
+  --fs-2xl: 2.25rem;
+  --fs-3xl: 3rem;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  /* Layout */
+  --container-max: 1320px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(20, 37, 28, 0.06);
+  --shadow-md: 0 4px 16px rgba(20, 37, 28, 0.08);
+  --shadow-lg: 0 12px 32px rgba(20, 37, 28, 0.16);
+
+  --transition-fast: 150ms ease;
+  --transition-base: 220ms ease;
+
+  --header-height: 96px;
+}

@@ -1,0 +1,35 @@
+.age-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 37, 28, 0.92);
+  padding: var(--space-5);
+}
+
+.age-gate[hidden] {
+  display: none;
+}
+
+.age-gate__panel {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-7);
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.age-gate__panel img { margin: 0 auto var(--space-5); }
+
+.age-gate__panel p { color: var(--color-text-muted); }
+
+.age-gate__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}

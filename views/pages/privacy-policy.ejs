@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container pages-hero">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span aria-current="page">Privacy Policy</span>
+      </nav>
+      <h1>Privacy Policy</h1>
+      <p class="pages-hero__lead">Last updated: <%= new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %></p>
+    </div>
+
+    <div class="container prose-section">
+      <p>This policy explains what information BudBase collects when you use this site, and how it's used. BudBase is a demonstration store; this page is included to show the kind of policy a real cannabis retailer would need, not as legal advice.</p>
+
+      <h2>Information We Collect</h2>
+      <p>When you create an account, we collect your name, email address, and a securely hashed version of your password — we never store your password in plain text. When you place an order, we additionally collect your delivery address, phone number (optional), and chosen payment method.</p>
+
+      <h2>How We Use It</h2>
+      <p>We use your information to process orders, maintain your account, and contact you about order status. We do not sell your personal information to third parties.</p>
+
+      <h2>Age Verification</h2>
+      <p>This site requires visitors to confirm they are 18 or older before browsing. We do not independently verify age beyond this confirmation on the storefront; age and ID checks happen at the point of delivery or pickup, as required by law.</p>
+
+      <h2>Cookies</h2>
+      <p>We use a session cookie to remember your cart and login state, and a separate cookie to remember that you've passed the age gate. These are functional cookies required for the site to work, not third-party tracking cookies.</p>
+
+      <h2>Your Rights</h2>
+      <p>You can request a copy of the data we hold about you, or ask us to delete your account, by contacting us at <a href="/contact">our contact page</a>.</p>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

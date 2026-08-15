@@ -1,0 +1,38 @@
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__col">
+      <h4>Links</h4>
+      <ul>
+        <li><a href="/contact">Contact Us</a></li>
+        <li><a href="/privacy-policy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms &amp; Conditions</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <h4>About Us</h4>
+      <ul>
+        <li><a href="/careers">Careers</a></li>
+        <li><a href="/investor-relations">Investor Relations</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col site-footer__signup">
+      <h4>Stay Connected</h4>
+      <ul>
+        <li><a href="#signup-form" id="footer-signup-link">Email Signup</a></li>
+      </ul>
+      <form class="signup-form" id="signup-form" action="/newsletter" method="POST">
+        <input type="email" name="email" placeholder="Email address" required>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="site-footer__legal container">
+    <span>&copy; <%= new Date().getFullYear() %> BudBase. All rights reserved. You must be of legal age to purchase cannabis products.</span>
+    <div class="site-footer__badge" title="Verified Retailer">
+      <svg width="20" height="24" viewBox="0 0 24 28" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l9 4v7c0 6-4 10.5-9 13-5-2.5-9-7-9-13V6l9-4z"/><path d="M8.5 14l2.5 2.5 5-5"/></svg>
+    </div>
+  </div>
+</footer>

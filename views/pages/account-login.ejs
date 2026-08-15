@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/checkout.css">
+  <link rel="stylesheet" href="/css/account.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container auth-page">
+      <div class="auth-card">
+        <h1>Log In</h1>
+
+        <% if (errors) { %>
+          <div class="form-errors">
+            <ul>
+              <% errors.forEach(function(e) { %><li><%= e %></li><% }) %>
+            </ul>
+          </div>
+        <% } %>
+
+        <form method="POST" action="/account/login">
+          <div class="form-row">
+            <label>Email
+              <input type="email" name="email" value="<%= formValues.email || '' %>" required>
+            </label>
+          </div>
+          <div class="form-row">
+            <label>Password
+              <input type="password" name="password" required>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary auth-card__submit">Log In</button>
+        </form>
+
+        <p class="auth-card__switch">New to BudBase? <a href="/account/signup">Create an account</a></p>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

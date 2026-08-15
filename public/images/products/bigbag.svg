@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1F4D3A"/>
+      <stop offset="100%" stop-color="#14251C"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#g)"/>
+  <path d="M220 240 L380 240 L400 470 C400 490 380 500 360 500 L240 500 C220 500 200 490 200 470 Z" fill="#FAF7F0"/>
+  <path d="M250 240 C250 190 275 160 300 160 C325 160 350 190 350 240" fill="none" stroke="#A9C93B" stroke-width="14" stroke-linecap="round"/>
+  <text x="300" y="400" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#1F4D3A">28g</text>
+  <text x="300" y="560" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#FAF7F0" opacity="0.85">Big Bags</text>
+</svg>

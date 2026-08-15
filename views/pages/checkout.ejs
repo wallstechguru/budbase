@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/checkout.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container checkout-page">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/cart">Cart</a>
+        <span>/</span>
+        <span aria-current="page">Checkout</span>
+      </nav>
+
+      <h1>Checkout</h1>
+
+      <% if (errors) { %>
+        <div class="form-errors">
+          <ul>
+            <% errors.forEach(function(e) { %><li><%= e %></li><% }) %>
+          </ul>
+        </div>
+      <% } %>
+
+      <form method="POST" action="/checkout" class="checkout-layout">
+        <div class="checkout-fields">
+          <section class="checkout-section">
+            <h2>Contact Information</h2>
+            <div class="form-row">
+              <label>Full Name
+                <input type="text" name="full_name" value="<%= formValues.full_name || '' %>" required>
+              </label>
+            </div>
+            <div class="form-row form-row--split">
+              <label>Email
+                <input type="email" name="email" value="<%= formValues.email || '' %>" required>
+              </label>
+              <label>Phone (optional)
+                <input type="tel" name="phone" value="<%= formValues.phone || '' %>">
+              </label>
+            </div>
+          </section>
+
+          <section class="checkout-section">
+            <h2>Delivery Address</h2>
+            <div class="form-row">
+              <label>Address
+                <textarea name="address" rows="2" required><%= formValues.address || '' %></textarea>
+              </label>
+            </div>
+          </section>
+
+          <section class="checkout-section">
+            <h2>Payment Method</h2>
+            <p class="checkout-section__hint">Orders are processed manually — we'll follow up with payment instructions and confirm before fulfilling.</p>
+            <div class="radio-options">
+              <% paymentMethods.forEach(function(m, i) { %>
+                <label class="radio-option" data-payment-value="<%= m.value %>">
+                  <input type="radio" name="payment_method" value="<%= m.value %>" <%= formValues.payment_method === m.value ? 'checked' : (!formValues.payment_method && i === 0 ? 'checked' : '') %>>
+                  <span>
+                    <strong><%= m.label %></strong>
+                    <small><%= m.instructions %></small>
+                  </span>
+                </label>
+                <% if (m.networks) { %>
+                  <div class="crypto-network-options" id="crypto-network-field" <%= formValues.payment_method === 'crypto' ? '' : 'hidden' %>>
+                    <% m.networks.forEach(function(n) { %>
+                      <label class="crypto-network-option">
+                        <input type="radio" name="crypto_network" value="<%= n.value %>" <%= formValues.crypto_network === n.value ? 'checked' : '' %>>
+                        <%= n.label %>
+                      </label>
+                    <% }) %>
+                  </div>
+                <% } %>
+              <% }) %>
+            </div>
+          </section>
+        </div>
+
+        <aside class="checkout-summary">
+          <h2>Order Summary</h2>
+          <ul class="checkout-summary__list">
+            <% cartItems.forEach(function(item) { %>
+              <li>
+                <span class="checkout-summary__item-name"><%= item.quantity %> &times; <%= item.product_name %> <em><%= item.size_label %></em></span>
+                <span><%= formatPrice(item.price * item.quantity) %></span>
+              </li>
+            <% }) %>
+          </ul>
+          <div class="checkout-summary__total">
+            <span>Subtotal</span>
+            <span><%= formatPrice(cartSubtotal) %></span>
+          </div>
+          <button type="submit" class="btn btn-primary checkout-summary__submit">Place Order</button>
+        </aside>
+      </form>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+  <script src="/js/checkout.js" defer></script>
+</body>
+</html>

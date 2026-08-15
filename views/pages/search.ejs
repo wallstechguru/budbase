@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/shop.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container shop-page">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span aria-current="page">Search</span>
+      </nav>
+
+      <% if (!query) { %>
+        <h1>Search</h1>
+        <p class="shop-empty">Enter a search term to find products, brands, or categories.</p>
+      <% } else { %>
+        <h1>Search results for &ldquo;<%= query %>&rdquo;</h1>
+
+        <% if (products.length) { %>
+          <p class="shop-toolbar__count"><%= total %> product<%= total === 1 ? '' : 's' %> found</p>
+
+          <div class="product-grid">
+            <% products.forEach(function(product) { %>
+              <%- include('../partials/product-card', { product: product }) %>
+            <% }) %>
+          </div>
+
+          <%- include('../partials/pagination') %>
+        <% } else { %>
+          <p class="shop-empty">No products matched &ldquo;<%= query %>&rdquo;. Try a different search, or browse by category.</p>
+          <a href="/shop" class="btn btn-outline">Shop All Products</a>
+        <% } %>
+      <% } %>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

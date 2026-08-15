@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/checkout.css">
+  <link rel="stylesheet" href="/css/account.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container auth-page">
+      <div class="auth-card">
+        <h1>Create an Account</h1>
+
+        <% if (errors) { %>
+          <div class="form-errors">
+            <ul>
+              <% errors.forEach(function(e) { %><li><%= e %></li><% }) %>
+            </ul>
+          </div>
+        <% } %>
+
+        <form method="POST" action="/account/signup">
+          <div class="form-row form-row--split">
+            <label>First Name
+              <input type="text" name="first_name" value="<%= formValues.first_name || '' %>">
+            </label>
+            <label>Last Name
+              <input type="text" name="last_name" value="<%= formValues.last_name || '' %>">
+            </label>
+          </div>
+          <div class="form-row">
+            <label>Email
+              <input type="email" name="email" value="<%= formValues.email || '' %>" required>
+            </label>
+          </div>
+          <div class="form-row form-row--split">
+            <label>Password
+              <input type="password" name="password" required minlength="8">
+            </label>
+            <label>Confirm Password
+              <input type="password" name="confirm_password" required minlength="8">
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary auth-card__submit">Create Account</button>
+        </form>
+
+        <p class="auth-card__switch">Already have an account? <a href="/account/login">Log in</a></p>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

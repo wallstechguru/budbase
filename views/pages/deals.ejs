@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/categories.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container pages-hero">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span aria-current="page">Deals</span>
+      </nav>
+      <h1>Deals</h1>
+      <p class="pages-hero__lead">Recurring ways to save at BudBase — no coupon codes, just lower prices.</p>
+    </div>
+
+    <div class="container deals-grid">
+      <div class="deal-tile deal-tile--rewards">
+        <h2>Base Rewards</h2>
+        <p>Create an account and get member pricing automatically applied on every order — no extra steps at checkout.</p>
+        <a href="/account/signup" class="btn btn-accent">Join Base Rewards</a>
+      </div>
+      <div class="deal-tile deal-tile--deal">
+        <h2>Deal Days</h2>
+        <p>Every Wednesday, a rotating selection of favourites drops to as low as £5. Check back weekly — the lineup changes.</p>
+        <a href="/shop" class="btn btn-outline">Shop the Lineup</a>
+      </div>
+    </div>
+
+    <% if (dealProducts.length) { %>
+      <section class="collections container">
+        <div class="collections__header">
+          <h2>This Week's Picks</h2>
+        </div>
+        <div class="product-grid">
+          <% dealProducts.forEach(function(product) { %>
+            <%- include('../partials/product-card', { product: product }) %>
+          <% }) %>
+        </div>
+      </section>
+    <% } %>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

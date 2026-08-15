@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/checkout.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <% var p = product || {}; %>
+  <% var variants = (p.variants && p.variants.length) ? p.variants : [{}]; %>
+
+  <main>
+    <div class="container admin-page admin-page--form">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/admin">Admin</a>
+        <span>/</span>
+        <span aria-current="page"><%= p.id ? 'Edit Product' : 'Add Product' %></span>
+      </nav>
+      <h1><%= p.id ? 'Edit Product' : 'Add Product' %></h1>
+
+      <% if (notice) { %>
+        <div class="admin-notice"><%= notice %></div>
+      <% } %>
+      <% if (errors) { %>
+        <div class="form-errors">
+          <ul>
+            <% errors.forEach(function(e) { %><li><%= e %></li><% }) %>
+          </ul>
+        </div>
+      <% } %>
+
+      <form method="POST" action="<%= p.id ? '/admin/products/' + p.id : '/admin/products' %>" class="admin-form" enctype="multipart/form-data">
+        <section class="checkout-section">
+          <h2>Basics</h2>
+          <div class="form-row form-row--split">
+            <label>Product Name
+              <input type="text" name="name" value="<%= p.name || '' %>" required>
+            </label>
+            <label>Brand
+              <input type="text" name="brand_name" value="<%= p.brand_name || '' %>" placeholder="e.g. Northfield Farms">
+            </label>
+          </div>
+          <div class="form-row form-row--split">
+            <label>Category
+              <select name="category_id" required>
+                <option value="">Select a category</option>
+                <% categories.forEach(function(c) { %>
+                  <option value="<%= c.id %>" <%= String(p.category_id) === String(c.id) ? 'selected' : '' %>><%= c.name %></option>
+                <% }) %>
+              </select>
+            </label>
+            <label class="admin-checkbox">
+              <input type="checkbox" name="featured" <%= p.featured ? 'checked' : '' %>>
+              Featured on homepage
+            </label>
+          </div>
+          <div class="form-row">
+            <label>Description
+              <textarea name="description" rows="3"><%= p.description || '' %></textarea>
+            </label>
+          </div>
+        </section>
+
+        <section class="checkout-section">
+          <h2>Product Image</h2>
+          <% if (p.image) { %>
+            <div class="admin-image-current">
+              <img src="<%= resolveProductImage(p.image) %>" alt="Current product image">
+              <span>Current image &mdash; upload a new file below to replace it.</span>
+            </div>
+          <% } %>
+          <input type="hidden" name="current_image" value="<%= p.image || '' %>">
+          <div class="form-row">
+            <label>Upload Image
+              <input type="file" name="image_file" accept="image/*" <%= p.image ? '' : 'required' %>>
+            </label>
+          </div>
+        </section>
+
+        <section class="checkout-section">
+          <h2>Details</h2>
+          <div class="form-row form-row--split">
+            <label>Consumption Method
+              <input type="text" name="consumption_method" value="<%= p.consumption_method || '' %>" placeholder="Smoke, Smoke/Vape, Ingest">
+            </label>
+            <label>Form
+              <input type="text" name="form" value="<%= p.form || '' %>" placeholder="Dried Flower, 510 Cartridge...">
+            </label>
+          </div>
+          <div class="form-row form-row--split">
+            <label>Cultivar Type
+              <input type="text" name="cultivar_type" value="<%= p.cultivar_type || '' %>" placeholder="Indica, Sativa, Hybrid">
+            </label>
+            <label>Dominant Effect
+              <input type="text" name="dominant_effect" value="<%= p.dominant_effect || '' %>" placeholder="Relaxed, Uplifted...">
+            </label>
+          </div>
+          <div class="form-row form-row--split-4">
+            <label>THC Min %
+              <input type="number" step="0.1" name="thc_min" value="<%= p.thc_min ?? '' %>">
+            </label>
+            <label>THC Max %
+              <input type="number" step="0.1" name="thc_max" value="<%= p.thc_max ?? '' %>">
+            </label>
+            <label>CBD Min %
+              <input type="number" step="0.1" name="cbd_min" value="<%= p.cbd_min ?? '' %>">
+            </label>
+            <label>CBD Max %
+              <input type="number" step="0.1" name="cbd_max" value="<%= p.cbd_max ?? '' %>">
+            </label>
+          </div>
+        </section>
+
+        <section class="checkout-section">
+          <h2>Sizes &amp; Pricing</h2>
+          <div id="variant-rows" class="admin-variant-rows">
+            <% variants.forEach(function(v) { %>
+              <div class="admin-variant-row">
+                <input type="text" name="variant_size" value="<%= v.size_label || '' %>" placeholder="e.g. 3.5g">
+                <input type="number" step="0.01" min="0" name="variant_price" value="<%= v.price ?? '' %>" placeholder="Price (&pound;)">
+                <button type="button" class="admin-variant-remove" aria-label="Remove size">&times;</button>
+              </div>
+            <% }) %>
+          </div>
+          <button type="button" id="add-variant-row" class="btn btn-outline">+ Add Size</button>
+        </section>
+
+        <button type="submit" class="btn btn-primary admin-form__submit"><%= p.id ? 'Save Changes' : 'Create Product' %></button>
+      </form>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+  <script src="/js/admin-product-form.js" defer></script>
+</body>
+</html>

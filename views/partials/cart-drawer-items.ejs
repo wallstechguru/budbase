@@ -1,0 +1,30 @@
+<% if (cartItems.length) { %>
+  <ul class="cart-drawer__list">
+    <% cartItems.forEach(function(item) { %>
+      <li class="cart-drawer__item">
+        <span class="cart-drawer__item-image">
+          <img src="<%= resolveProductImage(item.product_image) %>" alt="<%= item.product_name %>">
+        </span>
+        <span class="cart-drawer__item-body">
+          <span class="cart-drawer__item-brand"><%= item.brand_name %></span>
+          <span class="cart-drawer__item-name"><%= item.product_name %></span>
+          <span class="cart-drawer__item-meta"><%= item.size_label %> &middot; Qty <%= item.quantity %></span>
+          <span class="cart-drawer__item-price"><%= formatPrice(item.price * item.quantity) %></span>
+        </span>
+        <button type="button" class="cart-drawer__item-remove" data-cart-item-id="<%= item.cart_item_id %>" aria-label="Remove <%= item.product_name %>">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </li>
+    <% }) %>
+  </ul>
+  <div class="cart-drawer__footer">
+    <div class="cart-drawer__subtotal">
+      <span>Subtotal</span>
+      <span><%= formatPrice(cartSubtotal) %></span>
+    </div>
+    <a href="/cart" class="btn btn-outline">View Cart</a>
+    <a href="/checkout" class="btn btn-primary">Checkout</a>
+  </div>
+<% } else { %>
+  <p class="cart-drawer__empty">Your cart is empty.</p>
+<% } %>

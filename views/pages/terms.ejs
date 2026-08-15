@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container pages-hero">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span aria-current="page">Terms &amp; Conditions</span>
+      </nav>
+      <h1>Terms &amp; Conditions</h1>
+      <p class="pages-hero__lead">Last updated: <%= new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %></p>
+    </div>
+
+    <div class="container prose-section">
+      <p>These terms govern your use of BudBase. This is a demonstration store built for illustrative purposes; this page shows the kind of terms a real cannabis retailer would publish.</p>
+
+      <h2>Age Requirement</h2>
+      <p>You must be 18 years of age or older to purchase from BudBase. By using this site, you confirm that you meet this requirement.</p>
+
+      <h2>Orders &amp; Payment</h2>
+      <p>Orders placed through this site are held as <strong>pending manual processing</strong> until payment is confirmed through the method you select at checkout. We reserve the right to cancel any order where payment cannot be verified.</p>
+
+      <h2>Product Information</h2>
+      <p>THC and CBD percentages listed on product pages are approximate ranges. Actual potency may vary by batch.</p>
+
+      <h2>Delivery</h2>
+      <p>Delivery times are estimates, not guarantees. Someone 18 or older must be present to accept delivery.</p>
+
+      <h2>Limitation of Liability</h2>
+      <p>BudBase is provided "as is" for demonstration purposes. Nothing on this site constitutes medical advice.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about these terms can be sent via our <a href="/contact">contact page</a>.</p>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

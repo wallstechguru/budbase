@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/checkout.css">
+  <link rel="stylesheet" href="/css/account.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container account-page">
+      <div class="account-page__head">
+        <div>
+          <h1>My Account</h1>
+          <p class="account-page__welcome">Welcome back, <%= currentUser.first_name || currentUser.email %>.</p>
+        </div>
+        <div class="account-page__actions">
+          <% if (currentUser.is_admin) { %>
+            <a href="/admin" class="btn btn-outline">Admin Dashboard</a>
+          <% } %>
+          <form method="POST" action="/account/logout">
+            <button type="submit" class="btn btn-outline">Log Out</button>
+          </form>
+        </div>
+      </div>
+
+      <section class="account-section">
+        <h2>Order History</h2>
+
+        <% if (!orders.length) { %>
+          <p class="account-empty">You haven't placed any orders yet.</p>
+          <a href="/shop" class="btn btn-primary">Start Shopping</a>
+        <% } else { %>
+          <div class="order-list">
+            <% orders.forEach(function(order) { %>
+              <div class="order-card">
+                <div class="order-card__head">
+                  <div>
+                    <strong>Order #<%= order.id %></strong>
+                    <span class="order-card__date"><%= new Date(order.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %></span>
+                  </div>
+                  <span class="order-card__status"><%= order.status.replace(/_/g, ' ') %></span>
+                </div>
+                <ul class="order-card__items">
+                  <% order.items.forEach(function(item) { %>
+                    <li><%= item.quantity %> &times; <%= item.product_name %> <em><%= item.size_label %></em></li>
+                  <% }) %>
+                </ul>
+                <div class="order-card__foot">
+                  <span>Total</span>
+                  <strong><%= formatPrice(order.subtotal) %></strong>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        <% } %>
+      </section>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

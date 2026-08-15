@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container pages-hero">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span aria-current="page">Recycling Initiative</span>
+      </nav>
+      <h1>Recycling Initiative</h1>
+      <p class="pages-hero__lead">Cannabis packaging doesn't have to end up in landfill. Here's what we're doing about it.</p>
+    </div>
+
+    <div class="container impact-stats">
+      <div class="impact-stat">
+        <strong>12,400+</strong>
+        <span>Containers returned</span>
+      </div>
+      <div class="impact-stat">
+        <strong>1.1 tonnes</strong>
+        <span>Plastic diverted from landfill</span>
+      </div>
+      <div class="impact-stat">
+        <strong>18</strong>
+        <span>Drop-off points</span>
+      </div>
+    </div>
+
+    <div class="container prose-section">
+      <h2>How It Works</h2>
+      <p>Bring your empty BudBase containers — bottles, tins, and pre-roll tubes — back to BudBase HQ. We sort, clean, and route them to specialist recyclers who handle cannabis packaging, since most household recycling collections won't accept it.</p>
+
+      <h2>Our Mission</h2>
+      <p>Cannabis retail generates a lot of single-use plastic. We think a "value" retailer should mean value for the planet too, not just the price tag. This programme is small — one store, one collection point — but it's a start, and we'll expand it as BudBase grows.</p>
+
+      <h2>Recycling Accessories</h2>
+      <p>Ask in-store about our reusable storage tins and refillable containers, designed to cut down on packaging waste from repeat orders.</p>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>
