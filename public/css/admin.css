@@ -61,6 +61,12 @@
 
 .admin-page__head h1 { margin-bottom: 0; }
 
+.admin-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
 .admin-notice {
   background: var(--color-forest-100);
   color: var(--color-forest-900);

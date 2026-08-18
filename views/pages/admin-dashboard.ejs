@@ -15,7 +15,11 @@
 
       <div class="admin-page__head">
         <h1>Products</h1>
-        <a href="/admin/products/new" class="btn btn-primary">Add Product</a>
+        <div class="admin-page__actions">
+          <a href="/admin/products/export.csv" class="btn btn-outline">Export CSV</a>
+          <a href="/admin/products/import" class="btn btn-outline">Import CSV</a>
+          <a href="/admin/products/new" class="btn btn-primary">Add Product</a>
+        </div>
       </div>
 
       <% if (deleted) { %>

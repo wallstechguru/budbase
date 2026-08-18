@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/checkout.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container admin-page admin-page--form">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/admin">Admin</a>
+        <span>/</span>
+        <span aria-current="page">Import Products</span>
+      </nav>
+      <h1>Import Products</h1>
+
+      <% if (error) { %>
+        <div class="form-errors"><ul><li><%= error %></li></ul></div>
+      <% } %>
+
+      <% if (result) { %>
+        <div class="admin-notice">
+          <%= result.created %> product<%= result.created === 1 ? '' : 's' %> created,
+          <%= result.updated %> updated<%= result.errors.length ? ', ' + result.errors.length + ' row group(s) skipped' : '' %>.
+        </div>
+        <% if (result.errors.length) { %>
+          <div class="form-errors">
+            <ul>
+              <% result.errors.forEach(function(e) { %><li><%= e %></li><% }) %>
+            </ul>
+          </div>
+        <% } %>
+        <a href="/admin" class="btn btn-primary">Back to Products</a>
+      <% } else { %>
+        <div class="admin-order-detail__meta">
+          <p><strong>How it works</strong></p>
+          <p>One row per size/price. Rows sharing the same <code>name</code> become one product with multiple sizes. Leave <code>product_id</code> blank to create a new product, or fill it in (from an exported file) to update an existing one.</p>
+          <p><code>category</code> must exactly match an existing category name (Dried Flower, Pre-Rolls, Vapes, Concentrates, Edibles, Big Bags). <code>image</code> can be a full image URL, or leave blank to use a placeholder for now.</p>
+          <p>Not sure where to start? <a href="/admin/products/export.csv">Download your current catalog as CSV</a> and edit that.</p>
+        </div>
+
+        <form method="POST" action="/admin/products/import" enctype="multipart/form-data">
+          <div class="form-row">
+            <label>CSV File
+              <input type="file" name="csv_file" accept=".csv,text/csv" required>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary admin-form__submit">Upload &amp; Import</button>
+        </form>
+      <% } %>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

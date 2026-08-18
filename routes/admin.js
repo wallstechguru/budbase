@@ -4,6 +4,7 @@ const { listProductsForAdmin, getProductForEdit, createProduct, updateProduct, d
 const { uploadProductImage } = require('../lib/images');
 const { getAllCategories } = require('../lib/categories');
 const { getAllOrders, getOrderWithItems, updateOrderStatus, ORDER_STATUSES } = require('../lib/orders');
+const { exportProductsCsv, importProductsCsv } = require('../lib/products-csv');
 
 const router = express.Router();
 
@@ -13,6 +14,11 @@ const upload = multer({
   fileFilter: (req, file, cb) => {
     cb(null, file.mimetype.startsWith('image/'));
   },
+});
+
+const uploadCsv = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 2 * 1024 * 1024 },
 });
 
 function requireAdmin(req, res, next) {
@@ -47,6 +53,40 @@ router.get('/products/new', async (req, res, next) => {
       notice: null,
     });
   } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/products/export.csv', async (req, res, next) => {
+  try {
+    const csv = await exportProductsCsv();
+    res.set('Content-Type', 'text/csv; charset=utf-8');
+    res.set('Content-Disposition', `attachment; filename="budbase-products-${new Date().toISOString().slice(0, 10)}.csv"`);
+    res.send(csv);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/products/import', (req, res) => {
+  res.render('pages/admin-import', { title: 'Import Products', result: null, error: null });
+});
+
+router.post('/products/import', uploadCsv.single('csv_file'), async (req, res, next) => {
+  try {
+    if (!req.file) {
+      return res.status(400).render('pages/admin-import', { title: 'Import Products', result: null, error: 'Choose a CSV file to upload.' });
+    }
+    const result = await importProductsCsv(req.file.buffer);
+    res.render('pages/admin-import', { title: 'Import Products', result, error: null });
+  } catch (err) {
+    if (err.message && /Invalid Record Length|Invalid Opening Quote/.test(err.message)) {
+      return res.status(400).render('pages/admin-import', {
+        title: 'Import Products',
+        result: null,
+        error: `Couldn't parse that file as CSV: ${err.message}`,
+      });
+    }
     next(err);
   }
 });
