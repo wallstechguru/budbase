@@ -5,7 +5,7 @@ const { uploadProductImage } = require('../lib/images');
 const { getAllCategories } = require('../lib/categories');
 const { getAllOrders, getOrderWithItems, updateOrderStatus, ORDER_STATUSES } = require('../lib/orders');
 const { exportProductsCsv, importProductsCsv } = require('../lib/products-csv');
-const { convertShopifyCsv } = require('../lib/shopify-csv');
+const { convertShopifyCsv, toCsv, hydrateImages } = require('../lib/shopify-csv');
 
 const router = express.Router();
 
@@ -19,7 +19,7 @@ const upload = multer({
 
 const uploadCsv = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 2 * 1024 * 1024 },
+  limits: { fileSize: 10 * 1024 * 1024 },
 });
 
 function requireAdmin(req, res, next) {
@@ -93,31 +93,49 @@ router.post('/products/import', uploadCsv.single('csv_file'), async (req, res, n
 });
 
 router.get('/products/import-shopify', (req, res) => {
-  res.render('pages/admin-import-shopify', { title: 'Import from Shopify CSV', result: null, error: null });
+  res.render('pages/admin-import-shopify', { title: 'Import from Shopify CSV', result: null, error: null, started: false });
 });
 
+// Runs the conversion + image downloads + import without the request
+// waiting on it — a real supplier catalog can mean hundreds of external
+// image fetches, easily past any reasonable HTTP timeout. Progress and the
+// final tally go to the server log instead of the response.
 router.post('/products/import-shopify', uploadCsv.single('csv_file'), async (req, res, next) => {
   try {
     if (!req.file) {
-      return res.status(400).render('pages/admin-import-shopify', { title: 'Import from Shopify CSV', result: null, error: 'Choose a CSV file to upload.' });
+      return res.status(400).render('pages/admin-import-shopify', { title: 'Import from Shopify CSV', result: null, error: 'Choose a CSV file to upload.', started: false });
     }
-    const { csv, converted, skipped } = convertShopifyCsv(req.file.buffer);
-    if (!converted) {
+    const { rows, skipped } = convertShopifyCsv(req.file.buffer);
+    if (!rows.length) {
       return res.status(400).render('pages/admin-import-shopify', {
         title: 'Import from Shopify CSV',
         result: null,
         error: 'No usable rows found. Check the file has title/category/vendor/price columns.',
+        started: false,
       });
     }
-    const result = await importProductsCsv(Buffer.from(csv, 'utf8'));
-    result.errors = skipped.concat(result.errors);
-    res.render('pages/admin-import-shopify', { title: 'Import from Shopify CSV', result, error: null });
+
+    res.render('pages/admin-import-shopify', { title: 'Import from Shopify CSV', result: null, error: null, started: true, rowCount: rows.length });
+
+    (async () => {
+      console.log(`[import-shopify] starting: ${rows.length} product(s), fetching images...`);
+      const imageNotes = await hydrateImages(rows, {
+        onProgress: (done, total) => {
+          if (done % 25 === 0 || done === total) console.log(`[import-shopify] images: ${done}/${total}`);
+        },
+      });
+      const result = await importProductsCsv(Buffer.from(toCsv(rows), 'utf8'));
+      const allNotes = skipped.concat(imageNotes, result.errors);
+      console.log(`[import-shopify] done: ${result.created} created, ${result.updated} updated, ${allNotes.length} note(s)`);
+      allNotes.forEach((note) => console.log(`[import-shopify]   - ${note}`));
+    })().catch((err) => console.error('[import-shopify] background job failed:', err));
   } catch (err) {
     if (err.message && /Invalid Record Length|Invalid Opening Quote/.test(err.message)) {
       return res.status(400).render('pages/admin-import-shopify', {
         title: 'Import from Shopify CSV',
         result: null,
         error: `Couldn't parse that file as CSV: ${err.message}`,
+        started: false,
       });
     }
     next(err);

@@ -23,7 +23,14 @@
         <div class="form-errors"><ul><li><%= error %></li></ul></div>
       <% } %>
 
-      <% if (result) { %>
+      <% if (started) { %>
+        <div class="admin-notice">
+          Import started for <%= rowCount %> product<%= rowCount === 1 ? '' : 's' %>. It's running in the background &mdash;
+          downloading each product's image takes a moment per item, so a large catalog can take a while.
+          Check <a href="/admin">Products</a> in a few minutes, or watch the server log for progress and any per-row notes.
+        </div>
+        <a href="/admin" class="btn btn-primary">Back to Products</a>
+      <% } else if (result) { %>
         <div class="admin-notice">
           <%= result.created %> product<%= result.created === 1 ? '' : 's' %> created,
           <%= result.updated %> updated<%= result.errors.length ? ', ' + result.errors.length + ' row(s) skipped' : '' %>.
@@ -39,19 +46,19 @@
       <% } else { %>
         <div class="admin-order-detail__meta">
           <p><strong>How it works</strong></p>
-          <p>Upload a Shopify product-export CSV (columns like <code>id, handle, title, category, vendor, product_type, tags, price, compare_at_price, available, image, thc_min, thc_max, thc_unit, cbd_min, cbd_max, cbd_unit</code>) and it's mapped into a BudBase product per row: title &rarr; name, vendor &rarr; brand, category/product_type &rarr; our category + form, and THC/CBD in mg/g converted to a percentage.</p>
+          <p>Upload a Shopify-format product CSV (columns like <code>id, handle, title, category, vendor, product_type, tags, price, compare_at_price, available, image, thc_min, thc_max, thc_unit, cbd_min, cbd_max, cbd_unit</code>) and it's mapped into a BudBase product per row: title &rarr; name, vendor &rarr; brand, category/product_type &rarr; our category + form, and THC/CBD in mg/g converted to a percentage.</p>
           <p>Rows with the same title (e.g. the same product listed once per province) are collapsed into a single product, keeping the first one seen.</p>
-          <p><strong>Images are never imported from the file</strong> &mdash; every product comes in with the generic placeholder image. Upload your own photos (or generate new ones) afterward from each product's edit page.</p>
+          <p><strong>Images:</strong> if the row has an <code>image</code> URL, we download it and re-host a copy in your own storage &mdash; nothing links back to the original file's server. If a URL is missing or fails to download, that product just gets the generic placeholder image instead.</p>
           <p>Once created, use <a href="/admin/products/export.csv">Export CSV</a> / <a href="/admin/products/import">Import Products</a> for further bulk edits &mdash; those use BudBase's own column format.</p>
         </div>
 
         <form method="POST" action="/admin/products/import-shopify" enctype="multipart/form-data">
           <div class="form-row">
-            <label>Shopify CSV File
+            <label>Supplier CSV File
               <input type="file" name="csv_file" accept=".csv,text/csv" required>
             </label>
           </div>
-          <button type="submit" class="btn btn-primary admin-form__submit">Upload &amp; Convert</button>
+          <button type="submit" class="btn btn-primary admin-form__submit">Upload &amp; Import</button>
         </form>
       <% } %>
     </div>
