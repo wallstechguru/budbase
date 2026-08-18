@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/checkout.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container admin-page admin-page--form">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/admin">Admin</a>
+        <span>/</span>
+        <span aria-current="page">Import from Shopify CSV</span>
+      </nav>
+      <h1>Import from Shopify CSV</h1>
+
+      <% if (error) { %>
+        <div class="form-errors"><ul><li><%= error %></li></ul></div>
+      <% } %>
+
+      <% if (result) { %>
+        <div class="admin-notice">
+          <%= result.created %> product<%= result.created === 1 ? '' : 's' %> created,
+          <%= result.updated %> updated<%= result.errors.length ? ', ' + result.errors.length + ' row(s) skipped' : '' %>.
+        </div>
+        <% if (result.errors.length) { %>
+          <div class="form-errors">
+            <ul>
+              <% result.errors.forEach(function(e) { %><li><%= e %></li><% }) %>
+            </ul>
+          </div>
+        <% } %>
+        <a href="/admin" class="btn btn-primary">Back to Products</a>
+      <% } else { %>
+        <div class="admin-order-detail__meta">
+          <p><strong>How it works</strong></p>
+          <p>Upload a Shopify product-export CSV (columns like <code>id, handle, title, category, vendor, product_type, tags, price, compare_at_price, available, image, thc_min, thc_max, thc_unit, cbd_min, cbd_max, cbd_unit</code>) and it's mapped into a BudBase product per row: title &rarr; name, vendor &rarr; brand, category/product_type &rarr; our category + form, and THC/CBD in mg/g converted to a percentage.</p>
+          <p>Rows with the same title (e.g. the same product listed once per province) are collapsed into a single product, keeping the first one seen.</p>
+          <p><strong>Images are never imported from the file</strong> &mdash; every product comes in with the generic placeholder image. Upload your own photos (or generate new ones) afterward from each product's edit page.</p>
+          <p>Once created, use <a href="/admin/products/export.csv">Export CSV</a> / <a href="/admin/products/import">Import Products</a> for further bulk edits &mdash; those use BudBase's own column format.</p>
+        </div>
+
+        <form method="POST" action="/admin/products/import-shopify" enctype="multipart/form-data">
+          <div class="form-row">
+            <label>Shopify CSV File
+              <input type="file" name="csv_file" accept=".csv,text/csv" required>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary admin-form__submit">Upload &amp; Convert</button>
+        </form>
+      <% } %>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

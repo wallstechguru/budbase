@@ -5,6 +5,7 @@ const { uploadProductImage } = require('../lib/images');
 const { getAllCategories } = require('../lib/categories');
 const { getAllOrders, getOrderWithItems, updateOrderStatus, ORDER_STATUSES } = require('../lib/orders');
 const { exportProductsCsv, importProductsCsv } = require('../lib/products-csv');
+const { convertShopifyCsv } = require('../lib/shopify-csv');
 
 const router = express.Router();
 
@@ -83,6 +84,38 @@ router.post('/products/import', uploadCsv.single('csv_file'), async (req, res, n
     if (err.message && /Invalid Record Length|Invalid Opening Quote/.test(err.message)) {
       return res.status(400).render('pages/admin-import', {
         title: 'Import Products',
+        result: null,
+        error: `Couldn't parse that file as CSV: ${err.message}`,
+      });
+    }
+    next(err);
+  }
+});
+
+router.get('/products/import-shopify', (req, res) => {
+  res.render('pages/admin-import-shopify', { title: 'Import from Shopify CSV', result: null, error: null });
+});
+
+router.post('/products/import-shopify', uploadCsv.single('csv_file'), async (req, res, next) => {
+  try {
+    if (!req.file) {
+      return res.status(400).render('pages/admin-import-shopify', { title: 'Import from Shopify CSV', result: null, error: 'Choose a CSV file to upload.' });
+    }
+    const { csv, converted, skipped } = convertShopifyCsv(req.file.buffer);
+    if (!converted) {
+      return res.status(400).render('pages/admin-import-shopify', {
+        title: 'Import from Shopify CSV',
+        result: null,
+        error: 'No usable rows found. Check the file has title/category/vendor/price columns.',
+      });
+    }
+    const result = await importProductsCsv(Buffer.from(csv, 'utf8'));
+    result.errors = skipped.concat(result.errors);
+    res.render('pages/admin-import-shopify', { title: 'Import from Shopify CSV', result, error: null });
+  } catch (err) {
+    if (err.message && /Invalid Record Length|Invalid Opening Quote/.test(err.message)) {
+      return res.status(400).render('pages/admin-import-shopify', {
+        title: 'Import from Shopify CSV',
         result: null,
         error: `Couldn't parse that file as CSV: ${err.message}`,
       });
