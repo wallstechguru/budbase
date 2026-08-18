@@ -105,7 +105,7 @@ router.post('/products/import-shopify', uploadCsv.single('csv_file'), async (req
     if (!req.file) {
       return res.status(400).render('pages/admin-import-shopify', { title: 'Import from Shopify CSV', result: null, error: 'Choose a CSV file to upload.', started: false });
     }
-    const { rows, skipped } = convertShopifyCsv(req.file.buffer);
+    const { rows, skipped } = await convertShopifyCsv(req.file.buffer);
     if (!rows.length) {
       return res.status(400).render('pages/admin-import-shopify', {
         title: 'Import from Shopify CSV',
