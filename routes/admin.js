@@ -3,6 +3,7 @@ const multer = require('multer');
 const { listProductsForAdmin, getProductForEdit, createProduct, updateProduct, deleteProduct } = require('../lib/products');
 const { uploadProductImage } = require('../lib/images');
 const { getAllCategories } = require('../lib/categories');
+const { getAllOrders, getOrderWithItems, updateOrderStatus, ORDER_STATUSES } = require('../lib/orders');
 
 const router = express.Router();
 
@@ -165,6 +166,39 @@ router.post('/products/:id/delete', async (req, res, next) => {
       return res.redirect(`/admin/products/${req.params.id}/edit?error=${encodeURIComponent(result.error)}`);
     }
     res.redirect('/admin?deleted=1');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/orders', async (req, res, next) => {
+  try {
+    res.render('pages/admin-orders', { title: 'Orders', orders: await getAllOrders() });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/orders/:id', async (req, res, next) => {
+  try {
+    const order = await getOrderWithItems(req.params.id);
+    if (!order) return res.status(404).send('Order not found.');
+
+    res.render('pages/admin-order-detail', {
+      title: `Order #${order.id}`,
+      order,
+      statuses: ORDER_STATUSES,
+      notice: req.query.saved === '1' ? 'Status updated.' : null,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/orders/:id/status', async (req, res, next) => {
+  try {
+    await updateOrderStatus(req.params.id, req.body.status);
+    res.redirect(`/admin/orders/${req.params.id}?saved=1`);
   } catch (err) {
     next(err);
   }

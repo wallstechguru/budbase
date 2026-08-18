@@ -21,6 +21,7 @@
           <% if (currentUser.is_admin) { %>
             <a href="/admin" class="btn btn-outline">Admin Dashboard</a>
           <% } %>
+          <a href="/account/password" class="btn btn-outline">Change Password</a>
           <form method="POST" action="/account/logout">
             <button type="submit" class="btn btn-outline">Log Out</button>
           </form>

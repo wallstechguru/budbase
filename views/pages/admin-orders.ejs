@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container admin-page">
+      <%- include('../partials/admin-nav', { activeAdminTab: 'orders' }) %>
+
+      <div class="admin-page__head">
+        <h1>Orders</h1>
+      </div>
+
+      <% if (!orders.length) { %>
+        <p class="admin-empty">No orders yet.</p>
+      <% } else { %>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Payment</th>
+                <th>Status</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% orders.forEach(function(order) { %>
+                <tr>
+                  <td><a href="/admin/orders/<%= order.id %>">#<%= order.id %></a></td>
+                  <td><%= new Date(order.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
+                  <td><%= order.full_name %><br><span class="admin-table__sub"><%= order.email %></span></td>
+                  <td><%= order.payment_method.replace(/_/g, ' ') %><%= order.crypto_network ? ' (' + order.crypto_network.toUpperCase() + ')' : '' %></td>
+                  <td><%= order.status.replace(/_/g, ' ') %></td>
+                  <td><%= formatPrice(order.subtotal) %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

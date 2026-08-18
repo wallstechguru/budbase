@@ -11,6 +11,8 @@
 
   <main>
     <div class="container admin-page">
+      <%- include('../partials/admin-nav', { activeAdminTab: 'products' }) %>
+
       <div class="admin-page__head">
         <h1>Products</h1>
         <a href="/admin/products/new" class="btn btn-primary">Add Product</a>

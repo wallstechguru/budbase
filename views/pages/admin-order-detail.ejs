@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/checkout.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container admin-page admin-order-detail">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/admin/orders">Orders</a>
+        <span>/</span>
+        <span aria-current="page">Order #<%= order.id %></span>
+      </nav>
+      <h1>Order #<%= order.id %></h1>
+
+      <% if (notice) { %>
+        <div class="admin-notice"><%= notice %></div>
+      <% } %>
+
+      <div class="admin-order-detail__meta">
+        <div><strong>Placed:</strong> <%= new Date(order.created_at).toLocaleString('en-GB') %></div>
+        <div><strong>Customer:</strong> <%= order.full_name %> &lt;<%= order.email %>&gt;<%= order.phone ? ' &middot; ' + order.phone : '' %></div>
+        <div><strong>Delivery to:</strong> <%= order.address %></div>
+        <div><strong>Payment method:</strong> <%= order.payment_method.replace(/_/g, ' ') %><%= order.crypto_network ? ' (' + order.crypto_network.toUpperCase() + ')' : '' %></div>
+      </div>
+
+      <form method="POST" action="/admin/orders/<%= order.id %>/status" class="form-row form-row--split">
+        <label>Status
+          <select name="status" class="admin-status-select" onchange="this.form.submit()">
+            <% statuses.forEach(function(s) { %>
+              <option value="<%= s.value %>" <%= order.status === s.value ? 'selected' : '' %>><%= s.label %></option>
+            <% }) %>
+          </select>
+        </label>
+      </form>
+
+      <div class="checkout-summary confirmation__summary" style="margin-top: var(--space-6);">
+        <h2>Items</h2>
+        <ul class="checkout-summary__list">
+          <% order.items.forEach(function(item) { %>
+            <li>
+              <span class="checkout-summary__item-name"><%= item.quantity %> &times; <%= item.product_name %> <em><%= item.size_label %></em></span>
+              <span><%= formatPrice(item.unit_price * item.quantity) %></span>
+            </li>
+          <% }) %>
+        </ul>
+        <div class="checkout-summary__total">
+          <span>Subtotal</span>
+          <span><%= formatPrice(order.subtotal) %></span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

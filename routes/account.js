@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser, getUserByEmail, verifyPassword } = require('../lib/auth');
+const { createUser, getUserByEmail, getUserById, verifyPassword, updatePassword } = require('../lib/auth');
 const { getOrdersForUser } = require('../lib/orders');
 const { sendSignupNotification } = require('../lib/mailer');
 
@@ -73,6 +73,31 @@ router.post('/login', requireGuest, async (req, res, next) => {
 
     req.session.userId = user.id;
     res.redirect('/account');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/password', requireAuth, (req, res) => {
+  res.render('pages/account-password', { title: 'Change Password', errors: null, notice: null });
+});
+
+router.post('/password', requireAuth, async (req, res, next) => {
+  try {
+    const { current_password, new_password, confirm_password } = req.body;
+    const user = await getUserById(req.session.userId);
+
+    const errors = [];
+    if (!(await verifyPassword(user, current_password || ''))) errors.push('Current password is incorrect.');
+    if (!new_password || new_password.length < 8) errors.push('New password must be at least 8 characters.');
+    if (new_password !== confirm_password) errors.push('New passwords do not match.');
+
+    if (errors.length) {
+      return res.status(400).render('pages/account-password', { title: 'Change Password', errors, notice: null });
+    }
+
+    await updatePassword(user.id, new_password);
+    res.render('pages/account-password', { title: 'Change Password', errors: null, notice: 'Password updated.' });
   } catch (err) {
     next(err);
   }
