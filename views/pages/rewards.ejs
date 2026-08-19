@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container pages-hero">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span aria-current="page">Base Rewards</span>
+      </nav>
+      <h1>Base Rewards</h1>
+      <p class="pages-hero__lead">Member pricing on every order &mdash; no points to track, no tiers to climb. Create a free account and it's applied automatically.</p>
+    </div>
+
+    <div class="container impact-stats">
+      <div class="impact-stat">
+        <strong>1</strong>
+        <span>Create a free account</span>
+      </div>
+      <div class="impact-stat">
+        <strong>2</strong>
+        <span>Member pricing applies automatically</span>
+      </div>
+      <div class="impact-stat">
+        <strong>3</strong>
+        <span>Every order saved to your account</span>
+      </div>
+    </div>
+
+    <div class="container prose-section">
+      <h2>How It Works</h2>
+      <p>There's no separate rewards card or points balance to keep track of. The prices you see across BudBase are already member prices &mdash; sign up for a free account, and they're applied to every order, automatically, from checkout onward.</p>
+
+      <h2>What You Get</h2>
+      <p>Member pricing on the full catalogue, your delivery details saved for faster checkout, and a running history of everything you've ordered, all in one place under <a href="/account">My Account</a>.</p>
+
+      <h2>Why We Do It This Way</h2>
+      <p>Punch cards get lost and points expire before you remember to use them. We'd rather just keep prices lower for everyone with an account &mdash; simpler for you, and it means the savings actually get used.</p>
+    </div>
+
+    <div class="container" style="padding-bottom: var(--space-9);">
+      <a href="/account/signup" class="btn btn-accent">Join Base Rewards</a>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

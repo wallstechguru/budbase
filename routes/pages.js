@@ -16,6 +16,10 @@ const STORES = [
   },
 ];
 
+router.get('/rewards', (req, res) => {
+  res.render('pages/rewards', { title: 'Base Rewards' });
+});
+
 router.get('/deals', async (req, res, next) => {
   try {
     const dealProducts = await getFeaturedProducts();
