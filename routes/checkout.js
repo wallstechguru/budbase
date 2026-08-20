@@ -1,7 +1,7 @@
 const express = require('express');
 const { getCartSummary } = require('../lib/cart');
 const { createOrder, getOrderWithItems } = require('../lib/orders');
-const { sendOrderNotification } = require('../lib/mailer');
+const { sendOrderNotification, sendOrderConfirmation } = require('../lib/mailer');
 const paymentMethods = require('../lib/payment-methods');
 
 const router = express.Router();
@@ -71,6 +71,7 @@ router.post('/', async (req, res, next) => {
     req.session.lastOrderId = order.id;
 
     sendOrderNotification(order).catch((err) => console.error('Order notification failed:', err.message));
+    sendOrderConfirmation(order).catch((err) => console.error('Order confirmation email failed:', err.message));
 
     res.redirect(`/checkout/confirmation/${order.id}`);
   } catch (err) {
