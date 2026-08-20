@@ -24,6 +24,11 @@
   display: block;
   aspect-ratio: 1 / 1;
   padding: var(--space-5);
+  background: var(--color-forest-100);
+}
+
+@media (max-width: 640px) {
+  .product-card__image { padding: var(--space-4); }
 }
 
 .product-card__image img {
