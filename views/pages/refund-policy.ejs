@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container pages-hero">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span aria-current="page">Refund Policy</span>
+      </nav>
+      <h1>Refund Policy</h1>
+      <p class="pages-hero__lead">Last updated: <%= new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %></p>
+    </div>
+
+    <div class="container prose-section">
+      <p>This is a demonstration store built for illustrative purposes; this page shows the kind of refund policy a real Ontario cannabis retailer would publish, in line with provincial cannabis retail regulation.</p>
+
+      <h2>All Cannabis Sales Are Final</h2>
+      <p>Once a cannabis product has left our facility, we're unable to accept it back for return, exchange, or refund. This isn't a preference &mdash; it reflects Health Canada packaging and seed-to-sale tracking requirements that apply to every licensed cannabis retailer in Ontario, and it's standard across the regulated industry. We're not able to resell or restock any cannabis product once it's shipped, regardless of whether the packaging has been opened.</p>
+
+      <h2>When We Will Make It Right</h2>
+      <p>The no-returns rule above doesn't apply if something went wrong on our end. We'll offer a replacement or a full refund if:</p>
+      <ul>
+        <li>Your order arrives <strong>damaged or defective</strong> (e.g. a broken vape cartridge, a leaking container).</li>
+        <li>You received the <strong>wrong item or wrong quantity</strong>.</li>
+        <li>A product you purchased is subject to a <strong>manufacturer or Health Canada recall</strong>.</li>
+        <li>Your order doesn't arrive at all, and our delivery records can't account for it.</li>
+      </ul>
+      <p>To report any of these, contact us within <strong>48 hours of delivery</strong> via our <a href="/contact">contact page</a> with your order number and, where relevant, a photo of the issue. We'll confirm the outcome by email &mdash; typically a replacement, or a refund back to your original payment method.</p>
+
+      <h2>Order Cancellations</h2>
+      <p>Because orders are held as pending manual processing until payment is confirmed (see our <a href="/terms">Terms &amp; Conditions</a>), you can cancel or change an order free of charge any time <strong>before payment has been confirmed and the order dispatched</strong>. Once an order has shipped, it falls under the cannabis sales policy above and can no longer be cancelled.</p>
+
+      <h2>Non-Cannabis Items</h2>
+      <p>If we ever sell non-cannabis accessories alongside our cannabis catalogue, those would follow a standard 14-day return window for unused, unopened items &mdash; this doesn't apply to any cannabis product itself.</p>
+
+      <h2>Questions</h2>
+      <p>If you're not sure whether your situation qualifies, reach out via our <a href="/contact">contact page</a> and we'll sort it out.</p>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>

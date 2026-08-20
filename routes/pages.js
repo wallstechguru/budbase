@@ -7,12 +7,12 @@ const router = express.Router();
 const STORES = [
   {
     name: 'BudBase HQ',
-    address: '12 Market Street, London, E2 7JP',
+    address: '412 King Street West, Toronto, ON M5V 1K1',
     hours: [
       { day: 'Monday – Saturday', time: '9:00 AM – 9:00 PM' },
       { day: 'Sunday', time: '11:00 AM – 6:00 PM' },
     ],
-    phone: '020 7946 0958',
+    phone: '(416) 555-0142',
   },
 ];
 
@@ -60,6 +60,14 @@ router.post('/contact', async (req, res) => {
 
 router.get('/privacy-policy', (req, res) => {
   res.render('pages/privacy-policy', { title: 'Privacy Policy' });
+});
+
+router.get('/refund-policy', (req, res) => {
+  res.render('pages/refund-policy', { title: 'Refund Policy' });
+});
+
+router.get('/shipping-policy', (req, res) => {
+  res.render('pages/shipping-policy', { title: 'Shipping & Delivery Policy' });
 });
 
 router.get('/terms', (req, res) => {

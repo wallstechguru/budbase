@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+  <%- include('../partials/age-gate') %>
+  <%- include('../partials/header') %>
+  <%- include('../partials/cart-drawer') %>
+
+  <main>
+    <div class="container pages-hero">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span aria-current="page">Shipping &amp; Delivery Policy</span>
+      </nav>
+      <h1>Shipping &amp; Delivery Policy</h1>
+      <p class="pages-hero__lead">Last updated: <%= new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %></p>
+    </div>
+
+    <div class="container prose-section">
+      <p>This is a demonstration store built for illustrative purposes; this page shows the kind of shipping policy a real Ontario cannabis retailer would publish, in line with provincial cannabis retail regulation.</p>
+
+      <h2>Delivery Area</h2>
+      <p>We deliver exclusively within Ontario. Cannabis retail is regulated on a province-by-province basis in Canada, so we're not able to ship orders to other provinces or territories, or internationally, regardless of shipping address entered at checkout.</p>
+
+      <h2>Age Verification at Delivery</h2>
+      <p>Someone <strong>19 years of age or older</strong> must be present to accept delivery and must show valid government-issued photo ID matching the name on the order. If no one able to provide ID is available, the delivery will not be left and will be returned to us &mdash; we'll be in touch to arrange another attempt. We're not able to deliver to anyone who appears intoxicated.</p>
+
+      <h2>Order Processing</h2>
+      <p>Orders are held as <strong>pending manual processing</strong> until payment is confirmed through your chosen method (bank transfer or cryptocurrency &mdash; see checkout for details). Dispatch begins once payment is verified, which is typically same-day for orders confirmed before 3 PM, next business day otherwise.</p>
+
+      <h2>Delivery Times</h2>
+      <p>Most Ontario addresses receive their order within 1&ndash;3 business days of dispatch. These are estimates, not guarantees &mdash; weather, courier volume, and address verification can add time. You'll receive tracking information by email once your order ships.</p>
+
+      <h2>Packaging</h2>
+      <p>All cannabis products are shipped in plain, unmarked, child-resistant packaging that doesn't indicate the contents on the outside, in line with Health Canada packaging requirements. Nothing about the parcel identifies it as a cannabis delivery.</p>
+
+      <h2>Delivery Issues</h2>
+      <p>If your order hasn't arrived within the estimated window, or arrives damaged, contact us via our <a href="/contact">contact page</a> with your order number &mdash; see our <a href="/refund-policy">Refund Policy</a> for how we handle damaged, missing, or incorrect orders.</p>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+  <script src="/js/cart-drawer.js" defer></script>
+</body>
+</html>
