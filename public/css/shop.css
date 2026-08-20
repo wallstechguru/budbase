@@ -275,4 +275,24 @@
   .filter-pill__trigger { white-space: nowrap; }
   .filter-sort { margin-left: 0; }
   .filter-clear { white-space: nowrap; }
+
+  /* .filter-bar scrolls horizontally, which clips any absolutely-positioned
+     dropdown that overflows it — fix the panel to the viewport instead so it
+     stays visible regardless of where its trigger pill sits in the scroller. */
+  .filter-pill__panel {
+    position: fixed;
+    left: var(--space-4);
+    right: var(--space-4);
+    top: auto;
+    bottom: var(--space-4);
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    max-height: 70vh;
+    overflow-y: auto;
+    transform: translateY(12px);
+  }
+  .filter-pill.is-open .filter-pill__panel {
+    transform: translateY(0);
+  }
 }

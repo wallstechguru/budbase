@@ -194,6 +194,11 @@
   .checkout-summary { position: static; }
 }
 
+@media (max-width: 560px) {
+  .form-row--split { grid-template-columns: 1fr; }
+  .crypto-network-options { margin-left: 0; }
+}
+
 /* Confirmation page */
 .confirmation {
   max-width: 560px;
