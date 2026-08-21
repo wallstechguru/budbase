@@ -81,3 +81,29 @@
   .site-footer__inner { grid-template-columns: 1fr 1fr; }
   .signup-form { flex-direction: column; max-width: none; }
 }
+
+.whatsapp-float {
+  position: fixed;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  z-index: 80;
+  transition: transform var(--transition-fast);
+}
+.whatsapp-float:hover { transform: scale(1.08); }
+
+@media (max-width: 640px) {
+  .whatsapp-float {
+    width: 50px;
+    height: 50px;
+    right: var(--space-4);
+    bottom: var(--space-4);
+  }
+}
