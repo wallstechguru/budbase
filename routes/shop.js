@@ -70,6 +70,10 @@ async function renderListing(req, res, category) {
   });
   if (facetsError) throw facetsError;
 
+  const metaDescription = category
+    ? `Shop ${category.name} at BudBase, a licensed Ontario cannabis retailer. Real THC/CBD potency on every product, with province-wide delivery.`
+    : 'Browse BudBase\'s full cannabis catalog — dried flower, vapes, pre-rolls, concentrates, edibles, and accessories, with Ontario-wide delivery.';
+
   res.render('pages/shop', {
     title: category ? category.name : 'Shop All',
     heading: category ? category.name : 'Shop All Products',
@@ -85,6 +89,8 @@ async function renderListing(req, res, category) {
     activeFilters: getActiveFilters(req),
     pagerQuery: buildPagerQuery(req.query),
     clearHref: category ? `/shop/${category.slug}` : '/shop',
+    metaDescription,
+    ...(category && category.tile_image ? { ogImage: `https://budbase.online/images/products/${category.tile_image}` } : {}),
   });
 }
 

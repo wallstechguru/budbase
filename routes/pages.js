@@ -17,28 +17,48 @@ const STORES = [
 ];
 
 router.get('/rewards', (req, res) => {
-  res.render('pages/rewards', { title: 'Base Rewards' });
+  res.render('pages/rewards', {
+    title: 'Base Rewards',
+    metaDescription: 'Earn member pricing on every order with Base Rewards, BudBase\'s loyalty program for Ontario cannabis customers.',
+  });
 });
 
 router.get('/deals', async (req, res, next) => {
   try {
     const dealProducts = await getFeaturedProducts();
-    res.render('pages/deals', { title: 'Deals', dealProducts });
+    res.render('pages/deals', {
+      title: 'Deals',
+      dealProducts,
+      metaDescription: 'Weekly cannabis deals and discounts at BudBase, Ontario\'s licensed online cannabis retailer.',
+    });
   } catch (err) {
     next(err);
   }
 });
 
 router.get('/locations', (req, res) => {
-  res.render('pages/locations', { title: 'Locations', stores: STORES });
+  res.render('pages/locations', {
+    title: 'Locations',
+    stores: STORES,
+    metaDescription: 'BudBase location and delivery hours for Ontario cannabis customers.',
+  });
 });
 
 router.get('/recycling', (req, res) => {
-  res.render('pages/recycling', { title: 'Recycling Initiative' });
+  res.render('pages/recycling', {
+    title: 'Recycling Initiative',
+    metaDescription: 'BudBase\'s recycling initiative for cannabis packaging — how it works and why it matters.',
+  });
 });
 
 router.get('/contact', (req, res) => {
-  res.render('pages/contact', { title: 'Contact Us', errors: null, formValues: {}, submitted: false });
+  res.render('pages/contact', {
+    title: 'Contact Us',
+    errors: null,
+    formValues: {},
+    submitted: false,
+    metaDescription: 'Get in touch with BudBase — questions about orders, products, or delivery.',
+  });
 });
 
 router.post('/contact', async (req, res) => {
@@ -59,27 +79,45 @@ router.post('/contact', async (req, res) => {
 });
 
 router.get('/privacy-policy', (req, res) => {
-  res.render('pages/privacy-policy', { title: 'Privacy Policy' });
+  res.render('pages/privacy-policy', {
+    title: 'Privacy Policy',
+    metaDescription: 'How BudBase collects, uses, and protects your personal information.',
+  });
 });
 
 router.get('/refund-policy', (req, res) => {
-  res.render('pages/refund-policy', { title: 'Refund Policy' });
+  res.render('pages/refund-policy', {
+    title: 'Refund Policy',
+    metaDescription: 'BudBase\'s refund policy for cannabis orders, in line with Ontario cannabis retail regulation.',
+  });
 });
 
 router.get('/shipping-policy', (req, res) => {
-  res.render('pages/shipping-policy', { title: 'Shipping & Delivery Policy' });
+  res.render('pages/shipping-policy', {
+    title: 'Shipping & Delivery Policy',
+    metaDescription: 'How BudBase delivers cannabis orders across Ontario — delivery area, timing, and age verification.',
+  });
 });
 
 router.get('/terms', (req, res) => {
-  res.render('pages/terms', { title: 'Terms & Conditions' });
+  res.render('pages/terms', {
+    title: 'Terms & Conditions',
+    metaDescription: 'Terms and conditions governing the use of BudBase, a licensed Ontario cannabis retailer.',
+  });
 });
 
 router.get('/careers', (req, res) => {
-  res.render('pages/careers', { title: 'Careers' });
+  res.render('pages/careers', {
+    title: 'Careers',
+    metaDescription: 'Careers at BudBase — open roles at a licensed Ontario cannabis retailer.',
+  });
 });
 
 router.get('/investor-relations', (req, res) => {
-  res.render('pages/investor-relations', { title: 'Investor Relations' });
+  res.render('pages/investor-relations', {
+    title: 'Investor Relations',
+    metaDescription: 'Investor relations information for BudBase.',
+  });
 });
 
 module.exports = router;

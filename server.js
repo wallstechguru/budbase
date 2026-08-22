@@ -51,6 +51,11 @@ app.use(async (req, res, next) => {
     res.locals.searchQuery = typeof req.query.q === 'string' ? req.query.q : '';
     res.locals.resolveProductImage = resolveProductImage;
 
+    // SEO defaults - any route can override by passing the same key to res.render().
+    res.locals.metaDescription = 'BudBase is a licensed Ontario cannabis retailer offering dried flower, vapes, pre-rolls, concentrates, and edibles with province-wide delivery.';
+    res.locals.ogImage = 'https://budbase.online/images/logo.svg';
+    res.locals.canonicalUrl = 'https://budbase.online' + req.originalUrl.split('?')[0];
+
     const [categories, cart, currentUser] = await Promise.all([
       getAllCategories(),
       getCartSummary(req.sessionID),

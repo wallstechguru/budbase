@@ -1,5 +1,6 @@
 const express = require('express');
 const { supabase } = require('../lib/supabase');
+const { resolveProductImage } = require('../lib/images');
 
 const router = express.Router();
 
@@ -66,11 +67,20 @@ router.get('/:slug', async (req, res, next) => {
       relatedProducts = await attachPriceFrom(related);
     }
 
+    const metaDescription = flatProduct.description
+      ? flatProduct.description.slice(0, 155).trim()
+      : `${flatProduct.name}${flatProduct.brand_name ? ' by ' + flatProduct.brand_name : ''} — available now at BudBase, a licensed Ontario cannabis retailer.`;
+
+    const resolvedImage = resolveProductImage(flatProduct.image);
+    const ogImage = /^https?:\/\//i.test(resolvedImage) ? resolvedImage : `https://budbase.online${resolvedImage}`;
+
     res.render('pages/product', {
       title: flatProduct.name,
       product: flatProduct,
       variants,
       relatedProducts,
+      metaDescription,
+      ogImage,
     });
   } catch (err) {
     next(err);
