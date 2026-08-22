@@ -69,6 +69,7 @@ app.use(async (req, res, next) => {
   }
 });
 
+app.use('/', require('./routes/sitemap'));
 app.use('/', require('./routes/home'));
 app.use('/', require('./routes/pages'));
 app.use('/shop', require('./routes/shop'));
